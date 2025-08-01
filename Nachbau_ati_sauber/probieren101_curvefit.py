@@ -6,7 +6,7 @@ from Nachbau_ati_sauber.Geoplot_klasse import Plot_einfach
 # Definiere eine Power-Law-Funktion: f(x) = a * x^b
 
 
-Plot = True
+Plot = False
 x=(1.3490427098674522, 2.4476410523962135, 2.0423499059862698)
 x=(2.079410197193107, 5.044247217780449, 3.071635561514673)#spinat 1
 
@@ -19,6 +19,11 @@ x=(0.492, 0.503370340999207, 0.9850872938894277)#1412
 x=(1.390030607783122, 2.8014170723478093, 2.2560426832741567)#1646
 x=(1.322594688724423, 2.51064879164238, 2.180638379204893)#SL3 IAEA
 x=(1.2260778128286014, 2.2193287996903854, 2.041129297003236)#1633A
+
+x=(1.0136986301369864, 1.884062404405017, 2.0103137710633354)#Klaud a
+x=(1.032258064516129, 2.1153020545844834, 2.08001230958609)#Klaud b
+x=(0.42857142857142855, 0.5002557544757034, 0.6707060063224447)#Klaud_c
+
 def power_law(x, a, b):
     return a * np.power(x, b)
 
@@ -57,8 +62,8 @@ plt.figure()
 #plt.scatter(x_data, max_ratio, label="max_ratio", color='blue')
 Plot_einfach([x_data,max_ratio,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor")
 plt.plot(x_fit, y_fit_max, 'r-', label=f"Fit: a={popt_max[0]:.2e}, b={popt_max[1]:.2f}")
-plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
-plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
+#plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
+#plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
 #plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
 #plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
 plt.xlabel("x")
@@ -73,8 +78,8 @@ plt.figure()
 #plt.scatter(x_data, area_ratio, label="area_ratio", color='green')
 Plot_einfach([x_data,area_ratio,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor",color='green')
 plt.plot(x_fit, y_fit_area, 'r-', label=f"Fit: a={popt_area[0]:.2e}, b={popt_area[1]:.2f}")
-plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
-plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
+#plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
+#plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
 #plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
 #plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
 plt.xlabel("x")
@@ -89,8 +94,8 @@ plt.figure()
 #plt.scatter(x_data, area_ratio_mitback, label="area_ratio_mitback", color='purple')
 Plot_einfach([x_data,area_ratio_mitback,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor",color='purple')
 plt.plot(x_fit, y_fit_area_back, 'r-', label=f"Fit: a={popt_area_back[0]:.2e}, b={popt_area_back[1]:.2f}")
-plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
-plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
+#plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
+#plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
 #plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
 #plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
 plt.xlabel("x")
@@ -107,8 +112,8 @@ print(Z_ber(popt_area[0],popt_area[1], x[1]))
 print(Z_ber(popt_area_back[0],popt_area_back[1], x[2]))
 
 #für 20.2, auch 19.4
-plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
-plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
+#plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
+#plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
 #Gefundene Parameter: a = 55.933, b = -2.119
 #Gefundene Parameter: a = 27.646, b = -1.393
 #für 40 kV

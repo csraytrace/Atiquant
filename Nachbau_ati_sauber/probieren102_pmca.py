@@ -105,6 +105,7 @@ if __name__ == "__main__":
     file_path = r'C:\Users\julia\OneDrive\Dokumente\A_Christian\Masterarbeit\Tracormessungen\Messung2025\KLAUD\1646.spe_1.1.1.1.fit'
     file_path = r'C:\Users\julia\OneDrive\Dokumente\A_Christian\Masterarbeit\Tracormessungen\Messung2025\KLAUD\SL3IAEA.spe_1.1.1.1.fit'
     file_path = r'C:\Users\julia\OneDrive\Dokumente\A_Christian\Masterarbeit\Tracormessungen\Messung2025\KLAUD\1633A.spe_1.1.1.1.fit'
+    file_path = r'C:\Users\julia\OneDrive\Dokumente\A_Christian\Masterarbeit\Tracormessungen\Messung2025\KLAUD2\JLAUD_C.spe_1.1.1.1.fit'
 
     result_array = extract_fitareas(file_path)
     #print(result_array)

@@ -44,6 +44,6 @@ Ki = Calc_I()
 
 k=Ki.Kalibrierung_nlls([["Einfallswinkelalpha"],["activeLayer"],["Totschicht"],["charzucont_L"],["charzucont"],["Emax"],["Kontaktmaterialdicke"]],
                        [[15,25],[2, 4],[0.0, 0.2],[0.1, 1.2],[0.8, 1.1],[35,45],[10,40]], gemessene_Intensität=intensität, Elemente=elemente, Übergänge=Übergänge,
-                       Startwerte=[15,3,0,1.2,0.95,45,10],method="lm")
+                       Startwerte=[15,3,0,1.2,0.95,45,10],Bedingung=True)
 print(k)
 

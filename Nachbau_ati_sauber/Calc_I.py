@@ -11,7 +11,7 @@ from Nachbau_ati_sauber.packages.Funktionen import *
 
 class Calc_I():
     def __init__(self,
-                 Dateipfad='C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Atiquant\\BGQXRFPN\\BGQXRFPN\\MCMASTER.TXT',
+                 Dateipfad='MCMASTER.TXT',
                  Element_Probe="Ag", Röhrenmaterial="Rh", Einfallswinkelalpha=20, Einfallswinkelbeta=70,
                  Fensterwinkel=0, sigma = 1.0314, charzucont_L = 1,
                  Fenstermaterial_röhre="Be", Fensterdicke_röhre=125, Raumwinkel=1, Röhrenstrom=0.01, Emin=0, Emax=35,
@@ -453,12 +453,38 @@ class Calc_I():
         #print(self.Intensität_alle_jit_fürMinimierung(self.Konzentration,vorbereitete_Werte)[0])
         c = np.array([con / c.sum() for con in c])
         #print(c)
+        """
+        if np.isnan(c).any():
+            for i in range(10000):
+                c = np.random.rand(len(c))
+                c = c / c.sum()
+                print("konzstart",c)
+                c *= self.Konzentration/(self.Intensität_alle_jit_fürMinimierung(c,vorbereitete_Werte)[0])
+                c = np.array([con / c.sum() for con in c])
+                print("random Nummer",i)
+                print("KONZ",c)
+                if not np.isnan(c).any():
+                    break
+        """
+
+
         for i in range(20):
             c *= self.Konzentration/(self.Intensität_alle_jit_fürMinimierung(c,vorbereitete_Werte)[0])
             c = np.array([con / c.sum() for con in c])
             #print("Konz",c)
 
         #print("INTENSITÄT",self.Intensität_alle_jit_fürMinimierung(c,vorbereitete_Werte)[0]*(self.Konzentration/self.Intensität_alle_jit_fürMinimierung(c,vorbereitete_Werte)[0])[0])
+        """
+        if np.isnan(c).any():
+            print("Achtung: c enthält mindestens einen NaN-Wert!")
+            konz = np.array(self.Konzentration)
+            normiert = konz / konz.sum()
+            print("nor",normiert)
+            return normiert, 1
+        """
+
+
+        print("ergebnisati",c)
 
 
 
@@ -650,123 +676,153 @@ class Calc_I():
 
 
     def Minimierung_dark(self, Z_mittelwert,low_verteilung, **kwargs):
-        def low_kon_be(low_kon, Verteilung):
-            nor_vert = np.array(normiere_daten(Verteilung))
-            return low_kon * nor_vert
+        max_attempts = 100
+        attempts = 0
 
-        vorbereitete_Werte = kwargs.get("vorbereitete_Werte", None)
-        if vorbereitete_Werte == None:
-            vorbereitete_Werte = self.Werte_vorbereiten_alle_jit()
-        Probenelemente = np.array(self.Probe1)
-        index_low = np.where(Probenelemente<self.dark_M)
-        index_high = np.where(Probenelemente>=self.dark_M)
-        z_low = Probenelemente[index_low]
-        z_high = Probenelemente[index_high]
+        while True:
+            def low_kon_be(low_kon, Verteilung):
+                nor_vert = np.array(normiere_daten(Verteilung))
+                return low_kon * nor_vert
 
-        low_verteilung_volumenprozent = kwargs.get('low_verteilung_volumenprozent', False)
-        if low_verteilung_volumenprozent:
-            strings=[]
-            zahlen=np.array(low_verteilung)
-            for ele in z_low:
-                strings.append(Element(Element=ele).Get_Elementsymbol())
-            strings=np.array(strings)
-            kombiniert = " + ".join(f"{z} {s}1" for z, s in zip(zahlen, strings))
-            Elemente,low_verteilung, z = Verbindungen_Gewichtsprozent(kombiniert)
+            vorbereitete_Werte = kwargs.get("vorbereitete_Werte", None)
+            if vorbereitete_Werte == None:
+                vorbereitete_Werte = self.Werte_vorbereiten_alle_jit()
+            Probenelemente = np.array(self.Probe1)
+            index_low = np.where(Probenelemente<self.dark_M)
+            index_high = np.where(Probenelemente>=self.dark_M)
+            z_low = Probenelemente[index_low]
+            z_high = Probenelemente[index_high]
 
-        binder = kwargs.get("binder", None) #([2,1,1],["1 H1O1", "2 He1O1 + 4 C1O4"]), in der From, erste eins für % der Probe hier 50/50, die anderen für die binder, binder nur Z<11, Binder in Massenprozent
-        if binder is not None:
-            konz_bind = np.zeros(len(self.Probe1))
-            def Sym_Z(array):
-                z=[]
-                for i in array:
-                    z.append(Element(Element=i).Get_Atomicnumber())
-                return np.array(z)
-            Verteilung_binder = normiere_daten(binder[0])
-            for index, Verbind in enumerate(binder[1]):
-                if Verbind[0].isdigit():
-                    ele, konz, z = Verbindungen_Gewichtsprozent_vonMassenprozent(Verbind)
-                else:
-                    ele, konz, z = Verbindungen_Gewichtsprozent_vonMassenprozent("1"+Verbind)
+            low_verteilung_volumenprozent = kwargs.get('low_verteilung_volumenprozent', False)
+            if low_verteilung_volumenprozent:
+                strings=[]
+                zahlen=np.array(low_verteilung)
+                for ele in z_low:
+                    strings.append(Element(Element=ele).Get_Elementsymbol())
+                strings=np.array(strings)
+                kombiniert = " + ".join(f"{z} {s}1" for z, s in zip(zahlen, strings))
+                Elemente,low_verteilung, z = Verbindungen_Gewichtsprozent(kombiniert)
 
-                indices = np.array([np.where(Probenelemente == val)[0][0] for val in Sym_Z(ele)])
-                konz_bind[indices] += np.array(konz) * Verteilung_binder[index+1]
-            sum_konz_bind = konz_bind.sum()
+            binder = kwargs.get("binder", None) #([2,1,1],["1 H1O1", "2 He1O1 + 4 C1O4"]), in der From, erste eins für % der Probe hier 50/50, die anderen für die binder, binder nur Z<11, Binder in Massenprozent
+            if binder is not None:
+                konz_bind = np.zeros(len(self.Probe1))
+                def Sym_Z(array):
+                    z=[]
+                    for i in array:
+                        z.append(Element(Element=i).Get_Atomicnumber())
+                    return np.array(z)
+                Verteilung_binder = normiere_daten(binder[0])
+                for index, Verbind in enumerate(binder[1]):
+                    if Verbind[0].isdigit():
+                        ele, konz, z = Verbindungen_Gewichtsprozent_vonMassenprozent(Verbind)
+                    else:
+                        ele, konz, z = Verbindungen_Gewichtsprozent_vonMassenprozent("1"+Verbind)
 
-        Startkonzentration = kwargs.get('Startkonzentration', None) #nur eine für low, die high konz
-        if Startkonzentration == None:
-            einstellung = {'Konzentration': self.Konzentration[index_high],
-                           'P1': np.array(self.Probe1)[index_high],
-                           'Übergänge': self.Übergänge[index_high].tolist()}
-            klasse_ohne_low = self.klasse_erstellen(einstellung)
-            konz, geo = klasse_ohne_low.Atiquant()
+                    indices = np.array([np.where(Probenelemente == val)[0][0] for val in Sym_Z(ele)])
+                    konz_bind[indices] += np.array(konz) * Verteilung_binder[index+1]
+                sum_konz_bind = konz_bind.sum()
+
+            Startkonzentration = kwargs.get('Startkonzentration', None) #nur eine für low, die high konz
+
+            if Startkonzentration == None:
+                einstellung = {'Konzentration': self.Konzentration[index_high],
+                               'P1': np.array(self.Probe1)[index_high],
+                               'Übergänge': self.Übergänge[index_high].tolist()}
+                klasse_ohne_low = self.klasse_erstellen(einstellung)
+                konz, geo = klasse_ohne_low.Atiquant()
+                print("konz",konz)
+
+                if np.isnan(konz).any():
+                    for i in range(1000):
+                        einstellung = {'Konzentration': self.Konzentration[index_high],
+                                       'P1': np.array(self.Probe1)[index_high],
+                                       'Übergänge': self.Übergänge[index_high].tolist()}
+                        klasse_ohne_low = self.klasse_erstellen(einstellung)
+                        konz, geo = klasse_ohne_low.Atiquant()
+                        print("erneuter Atibau",i,"Konz",konz)
+                        if not np.isnan(konz).any():
+                            break
 
 
+            #print("konz, geo",konz, geo)
             #konz, geo = self.klasse_erstellen(einstellung).Atiquant()
+                Startkonzentration = np.zeros(len(z_high)+1)
+                Startkonzentration[1:] = konz
 
-            Startkonzentration = np.zeros(len(z_high)+1)
-            Startkonzentration[1:] = konz
+                x,y =Z_anpassen(np.zeros(len(z_low)),z_low, konz,z_high,Z_mittelwert)
+                print("x",x,"y",y)
+                Startkonzentration[1:] *= y
+                Startkonzentration[0] = x
+                sum_high_start = Startkonzentration[1:].sum()
 
-            x,y =Z_anpassen(np.zeros(len(z_low)),z_low, konz,z_high,Z_mittelwert)
-            Startkonzentration[1:] *= y
-            Startkonzentration[0] = x
-            sum_high_start = Startkonzentration[1:].sum()
-
-            if binder is None:
-                konz_low_start = low_kon_be(Startkonzentration[0],low_verteilung)
-            else:
-                if sum_konz_bind >= Startkonzentration[0]/Startkonzentration.sum():
-                    Startkonzentration[0] = sum_konz_bind*Startkonzentration.sum()
-                konz_low_start = low_kon_be(Startkonzentration[0]-sum_konz_bind*Startkonzentration.sum(),low_verteilung)    #ohne /Konzentration.sum()?
-                konz_low_start += konz_bind[index_low]*Startkonzentration.sum()
-            #print("HIER")
-            be_I_ati = klasse_ohne_low.Intensität_alle_jit_fürMinimierung(Startkonzentration[1:],)[0]*geo
-            #be_I_ati *= self.Geo_IbIg(be_I_ati,np.arange(len(index_high)))
-            #print(be_I_ati)
-                  #self.Intensität_alle_jit_fürMinimierung(neue_Konz, vorbereitete_Werte)
-            #print(self.Intensität_alle_jit_fürMinimierung(np.concatenate((konz_low_start, Startkonzentration[1:])), vorbereitete_Werte)[0]*geo)
-            be_I_ati_O = ((self.Intensität_alle_jit_fürMinimierung(np.concatenate((konz_low_start, Startkonzentration[1:])), vorbereitete_Werte)[0]*geo)[index_high])
-            #print(be_I_ati_O)
-            #print(be_I_ati/be_I_ati_O)
-            Startkonzentration[1:] *= be_I_ati/be_I_ati_O
-            Startkonzentration[1:] *= sum_high_start / Startkonzentration[1:].sum()
-
-
-            new_low_start, new_high_start = (Z_anpassen(konz_low_start, z_low, Startkonzentration[1:], z_high, Z_mittelwert))
-            Startkonzentration[1:]*=new_high_start
-            Startkonzentration[0]*=new_low_start
-            konz_low_start*=new_low_start
+                if binder is None:
+                    konz_low_start = low_kon_be(Startkonzentration[0],low_verteilung)
+                else:
+                    if sum_konz_bind >= Startkonzentration[0]/Startkonzentration.sum():
+                        Startkonzentration[0] = sum_konz_bind*Startkonzentration.sum()
+                    konz_low_start = low_kon_be(Startkonzentration[0]-sum_konz_bind*Startkonzentration.sum(),low_verteilung)    #ohne /Konzentration.sum()?
+                    konz_low_start += konz_bind[index_low]*Startkonzentration.sum()
+                #print("HIER")
+                print("Startkonzentration[1:]",Startkonzentration[1:])
+                be_I_ati = klasse_ohne_low.Intensität_alle_jit_fürMinimierung(Startkonzentration[1:],)[0]*geo
+                #be_I_ati *= self.Geo_IbIg(be_I_ati,np.arange(len(index_high)))
+                #print(be_I_ati)
+                      #self.Intensität_alle_jit_fürMinimierung(neue_Konz, vorbereitete_Werte)
+                #print(self.Intensität_alle_jit_fürMinimierung(np.concatenate((konz_low_start, Startkonzentration[1:])), vorbereitete_Werte)[0]*geo)
+                be_I_ati_O = ((self.Intensität_alle_jit_fürMinimierung(np.concatenate((konz_low_start, Startkonzentration[1:])), vorbereitete_Werte)[0]*geo)[index_high])
+                #print(be_I_ati_O)
+                #print(be_I_ati/be_I_ati_O)
+                Startkonzentration[1:] *= be_I_ati/be_I_ati_O
+                Startkonzentration[1:] *= sum_high_start / Startkonzentration[1:].sum()
 
 
+                new_low_start, new_high_start = (Z_anpassen(konz_low_start, z_low, Startkonzentration[1:], z_high, Z_mittelwert))
+                Startkonzentration[1:]*=new_high_start
+                Startkonzentration[0]*=new_low_start
+                konz_low_start*=new_low_start
+     #           hmmm=((self.Intensität_alle_jit_fürMinimierung(np.concatenate((konz_low_start, Startkonzentration[1:])), vorbereitete_Werte)[0]*geo))
+     #           hmmm *= self.Geo_IbIg(hmmm,index_high)
+     #           print("ÜBERLEGTERSTART",hmmm)
+                print(Startkonzentration)
+                zzz=(np.concatenate((konz_low_start, Startkonzentration[1:])))
+                print("STaRT")
+                print(" & ".join([f"{value*100:.2f}" for value in zzz]))
 
- #           hmmm=((self.Intensität_alle_jit_fürMinimierung(np.concatenate((konz_low_start, Startkonzentration[1:])), vorbereitete_Werte)[0]*geo))
- #           hmmm *= self.Geo_IbIg(hmmm,index_high)
- #           print("ÜBERLEGTERSTART",hmmm)
-  #          print(Startkonzentration)
-  #          zzz=(np.concatenate((konz_low_start, Startkonzentration[1:])))
-  #          print("STaRT")
-   #         print(" & ".join([f"{value*100:.2f}" for value in zzz]))
-   #         print(geo)
-   #         print(self.Delta_I_konz(zzz,geo))
-   #         Z_mittel_be = sum(con / np.concatenate((konz_low_start, Startkonzentration[1:])).sum() * self.Probe1[index]
-    #        for index, con in enumerate(np.concatenate((konz_low_start, Startkonzentration[1:]))))
-    #        print(Z_mittel_be)
+       #         print(geo)
+       #         print(self.Delta_I_konz(zzz,geo))
+       #         Z_mittel_be = sum(con / np.concatenate((konz_low_start, Startkonzentration[1:])).sum() * self.Probe1[index]
+        #        for index, con in enumerate(np.concatenate((konz_low_start, Startkonzentration[1:]))))
+        #        print(Z_mittel_be)
 
-        fix_konz = kwargs.get('fix_konz', None) # in prozent immer unter 100
-        if fix_konz is not None:
-            fix_konz=np.array(fix_konz)/100
-            ent=np.arange(len(fix_konz))
-            Startkonzentration = np.delete(Startkonzentration, ent+1)
+            print("Start",Startkonzentration)
 
-            Zn = z_high[:len(fix_konz)] * fix_konz
-            Zn=Zn.sum()
-            Z_mittelwert = ((Z_mittelwert-Zn)/(1-fix_konz.sum()))
-            z_high=z_high[len(fix_konz):]
-            index_high=index_high[0][len(fix_konz):]
+            fix_konz = kwargs.get('fix_konz', None) # in prozent immer unter 100
+            if fix_konz is not None:
+                fix_konz=np.array(fix_konz)/100
+                ent=np.arange(len(fix_konz))
+                Startkonzentration = np.delete(Startkonzentration, ent+1)
+
+                Zn = z_high[:len(fix_konz)] * fix_konz
+                Zn=Zn.sum()
+                Z_mittelwert = ((Z_mittelwert-Zn)/(1-fix_konz.sum()))
+                z_high=z_high[len(fix_konz):]
+                index_high=index_high[0][len(fix_konz):]
 
 
-        gemessene_Intensitäten = self.Konzentration
-        lower_bounds = np.zeros(len(Startkonzentration))
-        upper_bounds = np.full(len(Startkonzentration), np.inf)
+            gemessene_Intensitäten = self.Konzentration
+            lower_bounds = np.zeros(len(Startkonzentration))
+            upper_bounds = np.full(len(Startkonzentration), np.inf)
+
+
+
+            if np.isnan(Startkonzentration).any():
+                print(f"NaN in Startkonzentration – Neustart Versuch {attempts+1}")
+                attempts += 1
+                if attempts >= max_attempts:
+                    raise RuntimeError("Zu viele Neustarts wegen NaN in Startkonzentration!")
+                continue  # nochmal versuchen
+            break  # alles ok
+
 
 
 
@@ -810,6 +866,8 @@ class Calc_I():
                 neue_gesamtkon = Konzentration.sum()*(1+fix_konz.sum())
                 neue_Konz=np.insert(neue_Konz,len(low_verteilung),fix_konz*neue_gesamtkon)
 
+            #print("neue KOnz",neue_Konz)
+
 
             berechnete_Intensitäten = self.Intensität_alle_jit_fürMinimierung(neue_Konz, vorbereitete_Werte)[0]
 
@@ -822,6 +880,15 @@ class Calc_I():
                 ent=np.arange(len(fix_konz))
                 gem_I, be_I = np.delete(gem_I, ent), np.delete(be_I, ent)
             #print("Konz",normiere_daten(np.array(neue_Konz))*100)
+
+            #print("res",be_I - gem_I)
+            #print("be_I",be_I)
+            #print("gem_I",gem_I)
+
+
+            if np.isnan(be_I).all():
+
+              be_I = np.ones_like(be_I) * 1e6
 
             return (be_I - gem_I)
             return (be_I - gem_I)/np.sqrt(be_I)
@@ -871,7 +938,7 @@ class Calc_I():
             ele.append(Element(Element=x).Get_Elementsymbol())
         print("Werte"+ " & "+(" & ".join([value for value in ele]))+" & "+" $ \\Delta$I & Z & Geo\\\\")
         print("\\hline")
-        print("berechnet"+ " & "+(" & ".join([f"{value:.4f}" for value in array]))+" & "+delta+" & "+ f"{Z:.2f}" + " & "+ "{:.2e}".format(Geo)+" \\\\")
+        print("berechnet"+ " & "+(" & ".join([f"{value:.2f}" for value in array]))+" & "+delta+" & "+ f"{Z:.2f}" + " & "+ "{:.2e}".format(Geo)+" \\\\")
         print("\hline")
         print("\\end{tabular}","}","\\caption{test}","\\end{table}", sep="\n")
 

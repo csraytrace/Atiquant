@@ -4,8 +4,7 @@ from Nachbau_ati_sauber.packages.Massenschwächungskoeffizient import  Massensch
 import numpy as np
 
 class Element(Massenschwächungskoeffizient):
-    def __init__(self, Emin = 0, Emax = 35, step = 0.05, Element = "Ag", Dateipfad = 'C:\\Users\\julia\\OneDrive\\Dokumente' \
-              '\\A_Christian\\Masterarbeit\\Atiquant\\BGQXRFPN\\BGQXRFPN\\MCMASTER.TXT'):
+    def __init__(self, Emin = 0, Emax = 35, step = 0.05, Element = "Ag", Dateipfad = 'MCMASTER.TXT'):
         super().__init__(Dateipfad=Dateipfad, Element=Element, Emin = Emin if Emin != 0 else step, Emax = Emax, step = step)
 
     def S_ij(self, Kante, Energie):

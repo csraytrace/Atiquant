@@ -1,7 +1,7 @@
 import os
 
 # Suchparameter
-SUCHWORT = "Kalibrierung_nlls"  # hier einmal
+SUCHWORT = "kalibrierung_test_output"  # hier einmal
 ORDNER = "C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Nachbau_neu"  # z.B. "C:/Users/julia/OneDrive/Dokumente/A_Christian/Masterarbeit/Nachbau_neu"
 #C:\Users\julia\OneDrive\Dokumente\A_Christian\Masterarbeit\Nachbau_neu
 

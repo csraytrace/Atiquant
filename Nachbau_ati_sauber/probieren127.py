@@ -42,6 +42,17 @@ for kal in kal_dat:
 
 
 
+
+#boby random start
+  #  Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=19.464, activeLayer=3.141, Totschicht=0.2, charzucont_L=0.6457124120834289,
+       #     charzucont=0.9891660,Emax=44.974,Kontaktmaterialdicke=25.6966503e+01)
+for kal in kal_dat:
+    Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=15, activeLayer=3.21, Totschicht=0.0, charzucont_L=0.1,
+                charzucont=1.078,Emax=44.97,Kontaktmaterialdicke=40)
+    print(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0])
+    y_data_boby.append(kal[1]/(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0]))
+
+
 #for kal in kal_dat:
  #   Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=15, activeLayer=2.993489938788493, Totschicht=0.0, charzucont_L=1.1997371366790963,
  #               charzucont=0.949251062884446,Emax=44.87403458252088,Kontaktmaterialdicke=10.0)
@@ -54,11 +65,11 @@ for kal in kal_dat:
  #   print(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0])
  #   y_data_lm.append(kal[1]/(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0]))
 
-for kal in kal_dat:
-    Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=-30.48201104, activeLayer= 2.81941896, Totschicht=0.5695597, charzucont_L=-2.67399482,
-                charzucont=1.09349746,Emax=45.66091736,Kontaktmaterialdicke=-9.49609831)
-    print(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0])
-    y_data_lm_scipy.append(kal[1]/(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0]))
+#for kal in kal_dat:
+  #  Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=-30.48201104, activeLayer= 2.81941896, Totschicht=0.5695597, charzucont_L=-2.67399482,
+  #              charzucont=1.09349746,Emax=45.66091736,Kontaktmaterialdicke=-9.49609831)
+#    print(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0])
+#    y_data_lm_scipy.append(kal[1]/(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0]))
 
 
 #for kal in kal_dat:
@@ -73,21 +84,21 @@ for kal in kal_dat:
 
 
 
-for i in range(3):
+for i in range(2):
 
    # Plot_einfach([x_data,y_data_lm,elemente], xy_format=True).plot_scatter(ylabel="lm",abweichung=True)
    # plt.show()
 
 
-   # Plot_einfach([x_data,y_data_boby,elemente], xy_format=True).plot_scatter(ylabel="boby",abweichung=True)
-   # plt.show()
+    Plot_einfach([x_data,y_data_boby,elemente], xy_format=True).plot_scatter(ylabel="boby",abweichung=True)
+    plt.show()
 
 
     Plot_einfach([x_data,y_data_scipy,elemente], xy_format=True).plot_scatter(ylabel="Scipy",abweichung=True)
     plt.show()
 
-    Plot_einfach([x_data,y_data_lm_scipy,elemente], xy_format=True).plot_scatter(ylabel="Scipy_lm",abweichung=True)
-    plt.show()
+  #  Plot_einfach([x_data,y_data_lm_scipy,elemente], xy_format=True).plot_scatter(ylabel="Scipy_lm",abweichung=True)
+   # plt.show()
 
 
 

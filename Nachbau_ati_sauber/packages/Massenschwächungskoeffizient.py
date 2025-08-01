@@ -13,7 +13,7 @@ def Tau_Schale_Energie_berechnen(McMasterparameter, Energie):
 class Massenschwächungskoeffizient(Datenauslesen):
 
         def __init__(self, Emin = 0, Emax = 35, step = 0.05, Element = "Cu"
-                    ,Dateipfad = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Atiquant\\BGQXRFPN\\BGQXRFPN\\MCMASTER.TXT',):
+                    ,Dateipfad = 'MCMASTER.TXT',):
             super().__init__(Dateipfad = Dateipfad, Element = Element)
             self.Emin = Emin
             self.Emax = Emax

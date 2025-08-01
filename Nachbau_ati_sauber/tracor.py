@@ -107,15 +107,15 @@ def Tracor_daten(file_path, plot, info, intensity = None, save_fig = [False, "_"
 #file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\Z_BESTIM\\SPECTRUM.'
 file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\STD\\SPECTRUM.'
 ##file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\wobi\\SPECTRUM.'
-#file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\KLAUD\\SPECTRUM.'
+file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\KLAUD2\\SPECTRUM.'
 save = file_path[:-9]
 
 int = []
-dateianfang = 110
-for i in range(8):
+dateianfang = 100
+for i in range(3):
     print("Datei", dateianfang+i)
     y_spec,title=Tracor_daten(file_path+str(dateianfang+i), 0, 1, (0,15000,None), [True,save])
-    #print(process_peaks(y_spec[0],y_spec[1],19.2,20,show_plot=True))
+    print(process_peaks(y_spec[0],y_spec[1],19.2,20,show_plot=True))
 
     ##print(process_intervals(y_spec[0],y_spec[1],[18.6,19.86],[19.86,20.59],titel1=title))
 
@@ -135,7 +135,7 @@ for i in range(8):
 #file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\Z_BESTIM\\SPECTRUM.'
 #y_spec=Tracor_daten(file_path+str(209), 0, 1, (0,104,20.1), [False,save])
 
-
+"""
 title_list=[]
 x,y,z = [],[],[]
 for i in range(1):
@@ -149,7 +149,7 @@ for i in range(1):
 
 print(x,y,z)
 print(title_list)
-
+"""
 
 #Tracor_daten(file_path+str(111), 0, 1, (1,104,19.25), [True,save])
 
