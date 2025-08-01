@@ -56,7 +56,7 @@ print((Ki.Intensität_alle_jit_fürMinimierung(op_Konz)[0]*op_Geo))
 #print(P1)
 #print((Ki.Intensität_alle_jit_fürMinimierung(op_Konz)[0]*op_Geo))
 
-
+print("alles klar?")
 
 
 
