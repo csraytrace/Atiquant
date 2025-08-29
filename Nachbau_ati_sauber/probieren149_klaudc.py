@@ -48,6 +48,8 @@ print(Konzentration)
 print(P1)
 print((Ki.Intensität_alle_jit_fürMinimierung(op_Konz)[0]*op_Geo))
 
+Ki.Minimierung_dark_einfach(Z_mittelwert=21.47,low_verteilung=Verteilung,binder=[[4.48,1.04],["1C38H76N2O2"]])
+
 
 
 
@@ -56,7 +58,6 @@ print((Ki.Intensität_alle_jit_fürMinimierung(op_Konz)[0]*op_Geo))
 #print(P1)
 #print((Ki.Intensität_alle_jit_fürMinimierung(op_Konz)[0]*op_Geo))
 
-print("alles klar?")
 
 
 

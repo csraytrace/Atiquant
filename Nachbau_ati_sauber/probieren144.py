@@ -10,6 +10,11 @@ Ver="10 H1 + 6 C1 + 0 N1 + 5 O1"
 
 
 Ver=("1 C38H76N2O2 + 2.08 Si1O2 + 2.07 Ti1O2")
+Ver=("1 Ga68In21Sn10")
+Ver =("68 Ga + 21 In + 14 Sn")
 #Ver=("1 Cu1 + 1 Zn1")
 ele_soil,kon_soil,z_soil = (Verbindungen_Gewichtsprozent_vonMassenprozent(Ver))
 print(ele_soil,kon_soil, z_soil)
+
+for i in [6,8,14,20]:
+    print(Element(Element=str(i)).Get_Elementsymbol())

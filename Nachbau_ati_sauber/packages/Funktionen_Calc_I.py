@@ -324,17 +324,25 @@ def Z_anpassen(konz_low, z_low, konz_high, z_high, z_gewünscht):
 
     z_mittel_low = sum(np.array(konz_low) * np.array(z_low)) / konz_sum_low
     z_mittel_high = sum(np.array(konz_high) * np.array(z_high)) / konz_sum_high
-    konz_gesamt = konz_sum_low + konz_sum_high
-    konz_sum_low /= konz_gesamt
-    konz_sum_high /= konz_gesamt
+    #konz_gesamt = konz_sum_low + konz_sum_high
+    #konz_sum_low /= konz_gesamt
+    #konz_sum_high /= konz_gesamt
     konz_neu_low = ((z_gewünscht - z_mittel_high) / (z_mittel_low - z_mittel_high))
     konz_neu_high = 1 - konz_neu_low
+    #print("z_mittel_low",z_mittel_low)
+    #print("z_mittel_high",z_mittel_high)
+    #print("konz_neu_low",konz_neu_low)
+    #print("konz_neu_high",konz_neu_high)
+    #print("konz_sum_low",konz_sum_low)
+    #print("konz_sum_high",konz_sum_high)
     #konz_gesamt_neu = konz_neu_high + konz_neu_low
     #konz_neu_low /= konz_gesamt_neu
     #konz_neu_high /= konz_gesamt_neu
+    #print(konz_neu_low)
 
     if z_gewünscht<z_mittel_low or z_gewünscht>z_mittel_high:
         print(z_mittel_low,z_mittel_high,z_gewünscht, "Wert muss dazwischen liegen")
+        return np.abs(konz_neu_low / konz_sum_low),  np.abs(konz_neu_high / konz_sum_high)
         ####raise ValueError("Z_gemittel kann nicht erreicht werden!")
 
     #print("ZPASSEN",konz_neu_low / konz_sum_low, konz_neu_high / konz_sum_high)

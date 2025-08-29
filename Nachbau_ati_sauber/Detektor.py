@@ -12,7 +12,7 @@ def BeerLambert(Massenschwachungskoe, Dichte, Dicke, Phi = 0):
 class Detektor():
     def __init__(self, Fenstermaterial = "Be", Fensterdicke = 7.62, phi = 0, Kontakmaterial = "Au", Kontaktmaterialdicke = 50,
                  Bedeckungsfaktor = 1, Detektormaterial = "Si", Totschicht = 0.05, activeLayer = 3,
-                 Dateipfad = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Atiquant\\BGQXRFPN\\BGQXRFPN\\MCMASTER.TXT',
+                 Dateipfad = 'MCMASTER.TXT',
                  Emin = 0, Emax = 35, step = 0.05):
         """Initialisiert eines Detektor:
         mit 3 verschiedenen Materialen (Fenster-, Kontaktschicht und Detektormaterial)

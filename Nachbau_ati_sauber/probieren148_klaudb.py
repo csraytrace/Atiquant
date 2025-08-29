@@ -31,13 +31,20 @@ for i in Elemente:
 
 
 
-Ki = Calc_I(Konzentration=Konzentration, P1=P1, Übergänge=Übergänge, Röhrenstrom=0.01, Messzeit=500, Emax=40, Kontaktmaterialdicke=2.99882970e+01, Totschicht=8.56937060e-11, sigma=8.30349567e-01,charzucont_L=0.3,charzucont=9.46173852e-01)
+Ki = Calc_I(Konzentration=Konzentration, P1=P1, Übergänge=Übergänge, Röhrenstrom=0.01, Messzeit=500, Emax=40, Kontaktmaterialdicke=2.99882970e+01, Totschicht=8.56937060e-11, sigma=8.30349567e-01,charzucont_L=0.3,charzucont=9.46173852e-01,step=0.01)
 
 
-op_Konz, op_Geo = Ki.Minimierung_dark( Z_mittelwert=12.1,low_verteilung=Verteilung,binder=[[4.67,1],["1C38H76N2O2"]], latex=True)    #,low_verteilung_volumenprozent=True,
+#op_Konz, op_Geo = Ki.Minimierung_dark( Z_mittelwert=12.1,low_verteilung=Verteilung,binder=[[4.67,1],["1C38H76N2O2"]], latex=True)    #,low_verteilung_volumenprozent=True,
 print(Konzentration)
 print(P1)
-print((Ki.Intensität_alle_jit_fürMinimierung(op_Konz)[0]*op_Geo))
+#print(("berechneteIntNormal",Ki.Intensität_alle_jit_fürMinimierung(op_Konz)[0]*op_Geo))
+op_Konz,op_Geo = Ki.Minimierung_dark_einfach( Z_mittelwert=12.1,low_verteilung=Verteilung,binder=[[4.67,1],["1C38H76N2O2"]])
+
+
+print("berechneteIntEinfach",Ki.Intensität_alle_jit_fürMinimierung(op_Konz)[0]*op_Geo)
+
+
+
 
 
 

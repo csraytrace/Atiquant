@@ -67,6 +67,7 @@ class Röhre():
             z_quer = self.Eindringtiefe_zähler * lnU / (self.Eindringtiefe_nenner + lnU)
 
             #sigma = 1.36e9 * Z * (U-1)**(self.sigma[0]-self.sigma[1]*Z + self.sigma[2] * self.Emax)
+            #sigma = 1.36e9 * Z * (U-1)**(1.0314-0.0032*Z + 0.0047 * self.Emax)    Widerschwinger
             sigma = 1.36e9 * Z * (U-1)**(self.sigma-0.0032*Z + 0.0047 * self.Emax)
             #sigma = 1.35e9 * Z * (U-1)**(1.109-0.00435*Z + 0.00175 * Emax) #loveScott
             #sigma = 1.3844 * 10**9 * Z * (U-1)**(1.05629-0.003492*Z)#Wiederschwinger 1990

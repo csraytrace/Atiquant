@@ -6,7 +6,7 @@ from Nachbau_ati_sauber.Geoplot_klasse import Plot_einfach
 # Definiere eine Power-Law-Funktion: f(x) = a * x^b
 
 
-Plot = False
+Plot = True
 x=(1.3490427098674522, 2.4476410523962135, 2.0423499059862698)
 x=(2.079410197193107, 5.044247217780449, 3.071635561514673)#spinat 1
 
@@ -30,7 +30,9 @@ def power_law(x, a, b):
 def Z_ber(a,b,x):
     return (x/a)**(1/b)
 
-
+def plot_theretisch(a,b):
+    return plt.plot(x_fit, power_law(x_fit, a,b), 'g-', label=f"Fit: a={a/100:.2e}, b={b:.2f} theoretisch S/F^2")
+a,b= 150.591,-1.617
 
 x_data = np.array([6.764105747271824,6.675959047736525,  10.80458010185401, 13,10.655788151261717,22, 23,5.509237711718639,14,12.040593318088916])
 max_ratio = [0.5192817972757827, 0.47087781731909845, 0.8507081495240306, 0.9724480578139115, 0.7878248487006052, 3.1619365609348913, 3.3859424920127794, 0.343804537521815, 0.942423030787685, 0.8565168653826557]
@@ -62,6 +64,9 @@ plt.figure()
 #plt.scatter(x_data, max_ratio, label="max_ratio", color='blue')
 Plot_einfach([x_data,max_ratio,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor")
 plt.plot(x_fit, y_fit_max, 'r-', label=f"Fit: a={popt_max[0]:.2e}, b={popt_max[1]:.2f}")
+
+plot_theretisch(a,b)
+
 #plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
 #plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
 #plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
@@ -78,8 +83,11 @@ plt.figure()
 #plt.scatter(x_data, area_ratio, label="area_ratio", color='green')
 Plot_einfach([x_data,area_ratio,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor",color='green')
 plt.plot(x_fit, y_fit_area, 'r-', label=f"Fit: a={popt_area[0]:.2e}, b={popt_area[1]:.2f}")
+
+plot_theretisch(a,b)
+
 #plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
-#plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
+plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
 #plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
 #plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
 plt.xlabel("x")
@@ -94,8 +102,11 @@ plt.figure()
 #plt.scatter(x_data, area_ratio_mitback, label="area_ratio_mitback", color='purple')
 Plot_einfach([x_data,area_ratio_mitback,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor",color='purple')
 plt.plot(x_fit, y_fit_area_back, 'r-', label=f"Fit: a={popt_area_back[0]:.2e}, b={popt_area_back[1]:.2f}")
+
+plot_theretisch(a,b)
+
 #plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
-#plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
+plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
 #plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
 #plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
 plt.xlabel("x")
@@ -121,3 +132,9 @@ print(Z_ber(popt_area_back[0],popt_area_back[1], x[2]))
 #Gefundene Parameter: a = 101.835, b = -1.469
 plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
 plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 import os
 
 # Suchparameter
-SUCHWORT = "kalibrierung_test_output"  # hier einmal
+SUCHWORT = "PlotSwitcher"  # hier einmal
 ORDNER = "C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Nachbau_neu"  # z.B. "C:/Users/julia/OneDrive/Dokumente/A_Christian/Masterarbeit/Nachbau_neu"
 #C:\Users\julia\OneDrive\Dokumente\A_Christian\Masterarbeit\Nachbau_neu
 
