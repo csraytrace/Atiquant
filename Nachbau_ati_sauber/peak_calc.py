@@ -76,13 +76,13 @@ class Intensity():
         # Beschriftung mit Netto-Fläche:
         label = "Netarea: " + str(self.Spekt.sum()) + "-" + str(self.Backround.sum())
         # Gesamtspektrum plotten
-        ax.plot(self.x, self.y, color="g", label=label)
+        ax.plot(self.x, self.y, color="g")
         # Bereichsgrenzen markieren
-        ax.axvline(x=self.anfang * Channel, color='r', linestyle='--', label='Anfang')
-        ax.axvline(x=self.ende * Channel, color='r', linestyle='--', label='Ende')
+        ax.axvline(x=self.anfang * Channel, color='k', linestyle='--')
+        ax.axvline(x=self.ende * Channel, color='k', linestyle='--')
         # Balken für Signal und Hintergrund zeichnen
-        ax.bar(self.x[self.anfang:self.ende+1], self.Spekt, width=Channel, align='center')
-        ##ax.bar(self.x[self.anfang:self.ende+1], self.Backround, width=Channel, align='center', color="r")
+        ax.bar(self.x[self.anfang:self.ende+1], self.Spekt, width=Channel, align='center', label="Area: " +str(self.Spekt.sum())+"\n"+ "Netarea: " +str(self.Spekt.sum()-self.Backround.sum()))
+        ax.bar(self.x[self.anfang:self.ende+1], self.Backround, width=Channel, align='center',facecolor='none',edgecolor='r', hatch='-',linewidth=0.8,  color="r")
         if self.titel is not None:
             ax.set_title(self.titel)
         ax.set_xlabel("E [keV]")
@@ -97,6 +97,8 @@ class Intensity():
                     xytext=(self.x[self.anfang], region_max),
                     arrowprops=dict(facecolor='black', arrowstyle='->'))
         ax.legend()
+        ##ax.set_xlim(17,20.8)
+        ##plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Flux.png", dpi=500, bbox_inches='tight', transparent=True)
         if created_fig:
             plt.show()
         return self.Spekt.sum() - self.Backround.sum()

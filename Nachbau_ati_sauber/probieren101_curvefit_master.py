@@ -31,18 +31,28 @@ def Z_ber(a,b,x):
     return (x/a)**(1/b)
 
 def plot_theretisch(a,b):
-    return plt.plot(x_fit, power_law(x_fit, a,b), 'g-', label=f"Fit: a={a/100:.2e}, b={b:.2f} theoretisch S/F^2")
+    #return plt.plot(x_fit, power_law(x_fit, a,b), 'g-', label=f"Fit: a={a/100:.2e}, b={b:.2f} theoretisch S/F^2")
+    return plt.plot(x_fit, power_law(x_fit, a,b), 'g-', label=f"Fit Theorie: $y = {a:.2f} \cdot x^{{{b:.2f}}}$")
+
+
 a,b= 150.591,-1.617
+a,b = 162.487, -1.617
 
 x_data = np.array([6.764105747271824,6.675959047736525,  10.80458010185401, 13,10.655788151261717,22, 23,5.509237711718639,14,12.040593318088916])
 max_ratio = [0.5192817972757827, 0.47087781731909845, 0.8507081495240306, 0.9724480578139115, 0.7878248487006052, 3.1619365609348913, 3.3859424920127794, 0.343804537521815, 0.942423030787685, 0.8565168653826557]
 area_ratio = [0.15485595365578395, 0.14631553120143945, 0.3796465669301627, 0.5182779478316906, 0.3347508392119637, 4.732582503928758, 4.441867954911433, 0.07762063319984955, 0.4939948998881837, 0.43569176861789294]
 area_ratio_mitback = [0.3666474983067125, 0.3500592647976667, 0.528063767483879, 0.5963138984251384, 0.49461529435048135, 1.522612791679146, 1.530709052164521, 0.28961559201910486, 0.5802744962129751, 0.5555957159434626]
 z=['FLUX', 'CELLULOSE', 'SIO2', 'AL', 'SV J1', 'TI', 'V', 'HWC', 'SI', '3SI9HWC']
+
+#für 18.6
 max_ratio = [1.9257366717765287, 2.123693160347651, 1.175491266375546, 1.0283325592196935, 1.2693176683235428, 0.31626187961985214, 0.29533874315908665, 2.9086294416243654, 1.0610946117946543, 1.1675193337299226]
 area_ratio = [6.457614165890028, 6.83454443823365, 2.634028823402882, 1.9294666195690569, 2.9872964690815955, 0.2113011234711384, 0.22513051044083526, 12.883172408878755, 2.0243123972056214, 2.2952005799242268]
 area_ratio_mitback =[2.7274153093047087, 2.8566591447822334, 1.8937106871861427, 1.6769691309241563, 2.021773308310612, 0.6567657946031008, 0.6532920143027413, 3.4528527729751297, 1.7233223354227432, 1.7998698897486818]
 
+#für 18
+#max_ratio = [1.9257366717765287, 2.123693160347651, 1.175491266375546, 1.0283325592196935, 1.2693176683235428, 0.31626187961985214, 0.29533874315908665, 2.9086294416243654, 1.0610946117946543, 1.1675193337299226]
+#area_ratio = [7.185740913327121, 7.270152918629721, 2.6574747257474725, 1.963376898622395, 3.2802094767654593, 0.1694476728097847, 0.1630945475638051, 13.400363416111448, 2.13439398133824, 2.260842804973124]
+#area_ratio_mitback =[3.130454290975017, 3.244046060346614, 2.1417731599943957, 1.9122590224393514, 2.3081300237243725, 0.7701131954006545, 0.7624696066746126, 3.8972277322980364, 1.9809807662199852, 2.0333297463339237]
 
 
 # Führe den Curve Fit für jeden Datensatz mit der Power-Law-Funktion durch:
@@ -62,8 +72,31 @@ y_fit_area_back = power_law(x_fit, *popt_area_back)
 # Plot für max_ratio:
 plt.figure()
 #plt.scatter(x_data, max_ratio, label="max_ratio", color='blue')
-Plot_einfach([x_data,max_ratio,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor")
-plt.plot(x_fit, y_fit_max, 'r-', label=f"Fit: a={popt_max[0]:.2e}, b={popt_max[1]:.2f}")
+Plot_einfach([x_data,max_ratio,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor",label="Messpunkte")
+#plt.plot(x_fit, y_fit_max, 'r-', label=f"Fit: a={popt_max[0]:.2e}, b={popt_max[1]:.2f}")
+plt.plot(x_fit, y_fit_max, 'r-', label=f"Curvefit: $y = {popt_max[0]:.2f} \cdot x^{{{popt_max[1]:.2f}}}$")
+
+
+plot_theretisch(a,b)
+#plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
+#plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
+#plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
+#plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
+plt.xlabel("Z")
+plt.ylabel("R(Z)")
+plt.title("Verhältnis der Maxima")
+plt.legend()
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Max.png", dpi=500, bbox_inches='tight', transparent=True)
+
+if Plot:
+    plt.show()
+
+# Plot für area_ratio:
+plt.figure()
+#plt.scatter(x_data, area_ratio, label="area_ratio", color='green')
+Plot_einfach([x_data,area_ratio,z], xy_format=True).plot_scatter(ylabel="R(Z)",color='green', xlabel="Z",label="Messpunkte")
+#plt.plot(x_fit, y_fit_area, 'r-', label=f"Fit: a={popt_area[0]:.2e}, b={popt_area[1]:.2f}")
+plt.plot(x_fit, y_fit_area, 'r-', label=f"Curvefit: $y = {popt_area[0]:.2f} \cdot x^{{{popt_area[1]:.2f}}}$")
 
 plot_theretisch(a,b)
 
@@ -71,48 +104,32 @@ plot_theretisch(a,b)
 #plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
 #plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
 #plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
-plt.xlabel("x")
-plt.ylabel("Geometriefaktor")
-plt.title("Power-Law Fit für max_ratio")
+plt.xlabel("Z")
+plt.ylabel("R(Z)")
+plt.title("Verhältnis Netarea")
 plt.legend()
-if Plot:
-    plt.show()
-
-# Plot für area_ratio:
-plt.figure()
-#plt.scatter(x_data, area_ratio, label="area_ratio", color='green')
-Plot_einfach([x_data,area_ratio,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor",color='green')
-plt.plot(x_fit, y_fit_area, 'r-', label=f"Fit: a={popt_area[0]:.2e}, b={popt_area[1]:.2f}")
-
-plot_theretisch(a,b)
-
-#plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
-plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
-#plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
-#plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
-plt.xlabel("x")
-plt.ylabel("Geometriefaktor")
-plt.title("Power-Law Fit für area_ratio")
-plt.legend()
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Full.png", dpi=500, bbox_inches='tight', transparent=True)
 if Plot:
     plt.show()
 
 # Plot für area_ratio_mitback:
 plt.figure()
 #plt.scatter(x_data, area_ratio_mitback, label="area_ratio_mitback", color='purple')
-Plot_einfach([x_data,area_ratio_mitback,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor",color='purple')
-plt.plot(x_fit, y_fit_area_back, 'r-', label=f"Fit: a={popt_area_back[0]:.2e}, b={popt_area_back[1]:.2f}")
+Plot_einfach([x_data,area_ratio_mitback,z], xy_format=True).plot_scatter(ylabel="Geometriefaktor",color='purple',label="Messpunkte")
+#plt.plot(x_fit, y_fit_area_back, 'r-', label=f"Fit: a={popt_area_back[0]:.2e}, b={popt_area_back[1]:.2f}")
+plt.plot(x_fit, y_fit_area_back, 'r-', label=f"Curvefit: $y = {popt_area_back[0]:.2f} \cdot x^{{{popt_area_back[1]:.2f}}}$")
 
 plot_theretisch(a,b)
 
 #plt.plot(x_fit, power_law(x_fit, 55.9,-2.12), 'g-', label=f"Fit: a={55.9:.2e}, b={-2.12:.2f} ganze Z modelliert")
-plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
+#plt.plot(x_fit, power_law(x_fit, 27.6,-1.39), 'b-', label=f"Fit: a={27.6:.2e}, b={-1.39:.2f}  Z 1-30 modelliert")
 #plt.plot(x_fit, power_law(x_fit, 194.823,-2.150), 'g-', label=f"Fit: a={194.823:.2e}, b={-2.150:.2f} ganze Z modelliert")
 #plt.plot(x_fit, power_law(x_fit, 101.835,-1.469), 'b-', label=f"Fit: a={101.835:.2e}, b={-1.469:.2f}  Z 1-30 modelliert")
-plt.xlabel("x")
-plt.ylabel("Geometriefaktor")
-plt.title("Power-Law Fit für area_ratio_mitback")
+plt.xlabel("Z")
+plt.ylabel("R(Z)")
+plt.title("Verhältnis Gesamtflächen")
 plt.legend()
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Net.png", dpi=500, bbox_inches='tight', transparent=True)
 if Plot:
     plt.show()
 

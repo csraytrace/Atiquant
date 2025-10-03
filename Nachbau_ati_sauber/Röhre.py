@@ -6,7 +6,7 @@ def BeerLambert(Massenschwachungskoe, Dichte, Dicke, Fenstereinfallwinkel):
 class Röhre():
     def __init__(self, Röhrenmaterial = "Rh", Einfallswinkelalpha = 20, Einfallswinkelbeta = 70, Fensterwinkel = 0, charzucont = 1,charzucont_L=1,
                 Fenstermaterial = "Be", Fensterdicke = 125, Raumwinkel = 1, Röhrenstrom = 0.01, Emin = 0, Emax = 35, sigma = 1.0314,
-                step=0.05, Messzeit = 30, folder_path='C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Atiquant\\BGQXRFPN\\BGQXRFPN\\MCMASTER.TXT'):
+                step=0.05, Messzeit = 30, folder_path='MCMASTER.TXT'):
         self.Röhrenmaterial = Röhrenmaterial
         self.Einfallwinkelalpha = np.cos(np.pi / 180 * Einfallswinkelalpha)
         self.Einfallwinkelbeta = np.cos(np.pi / 180 * Einfallswinkelbeta)

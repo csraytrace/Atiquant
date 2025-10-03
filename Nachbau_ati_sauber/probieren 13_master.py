@@ -12,8 +12,8 @@ from Nachbau_ati_sauber.ASR_auslese import All_asr_files
 from Nachbau_ati_sauber.Element import Element
 
 
-Ele = Element(Element="cu")
-L_Sn = Element(Element="sn")
+Ele = Element(Element="Cu")
+#L_Sn = Element(Element="sn")
 #print(L_Sn.Kanten())
 #plt.axvline(x=L_Sn.Kanten()[3][1], color='r', linestyle='-', label="sn-kante")
 
@@ -59,6 +59,11 @@ print(Ele.Kanten())
 print(Ele.Ubergange())
 
 plt.legend()
+
+
+#plt.xlim(22.2)
+#plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Cd_Intensität.png", dpi=500, bbox_inches='tight', transparent=True)
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Cu_Intensität.png", dpi=500, bbox_inches='tight', transparent=True)
 plt.show()
 
 

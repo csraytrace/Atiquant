@@ -25,8 +25,9 @@ def Abweichung(geo_list):
 
 
 pfad="C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Ati_java\\Ati_java\\kalibrierung_test_output.txt"
+pfad="C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Atiquant_java\\Atiquant\\kalibrierung_test_output.txt"
 #pfad="test1.txt"
-pfad="testneu.txt"
+#pfad="testneu.txt"
 data, einstellung = load_arrays_from_textfile(pfad)
 print(data)
 print(einstellung)
@@ -40,18 +41,19 @@ print(sorted_indices)
 #Plot_einfach(data[0], xy_format=False).plot_scatter(abweichung=True)
 
 #InteractivePlot([Plot_einfach(data[i], xy_format=False) for i in range(len(data))], scatter=True).show()
-
+print(einstellung[34])
 InteractivePlot(
     [Plot_einfach(data[i], xy_format=False) for i in range(len(data))],
     settings_list=einstellung,  # Einstellungen übergeben
     scatter=True,
-    ymin=1*10**-5,
-    ymax=5*10**-4,
+    #ymin=1*10**-5,
+    #ymax=10**-4,
     color="red",  # Weitere Optionen möglich
     abweichung=True  # Falls benötigt
 ).show()
 
 
-#print(einstellung[14])
+
+
 
 #plt.show()

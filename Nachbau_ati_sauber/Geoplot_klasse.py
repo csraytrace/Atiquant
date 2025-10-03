@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.widgets import Slider
+from adjustText import adjust_text
 
 class PlotSwitcher:
     def __init__(self,  geo, save_path=None):
@@ -185,11 +186,28 @@ class Plot_einfach:
 
         # Optional: Text hinzufügen
         if Zeichen and any(Zeichen):  # Prüfen, ob Zeichen vorhanden sind
+            texts = []
             for i, (x, y, z) in enumerate(zip(Energie, y_data, Zeichen)):
-                if z:  # Nur hinzufügen, wenn ein Zeichen existiert
-                    va_position = 'bottom' if i % 2 == 0 else 'top'  # Abwechselnd oben und unten setzen
-                    #va_position="top"
-                    ax.text(x, y, z, fontsize=12, ha='right', va=va_position)
+                if not z:
+                    continue
+                t = ax.text(x, y, z, fontsize=10)
+                texts.append(t)
+
+            # Texte iterativ so verschieben, dass sie sich nicht überlappen
+            adjust_text(
+                texts,
+                ax=ax,
+                only_move={'points':'y', 'texts':'xy'},  # z.B. Punkte nur vertikal, Texte frei
+                arrowprops=dict(arrowstyle='-', lw=0.5, color='0.5'),  # optional Leader
+                force_points=0.2, force_text=0.5, expand_points=(1.1, 1.2), expand_text=(1.1, 1.2),
+                lim=200  # Iterationslimit
+            )
+
+            #for i, (x, y, z) in enumerate(zip(Energie, y_data, Zeichen)):
+             #   if z:  # Nur hinzufügen, wenn ein Zeichen existiert
+             #       va_position = 'bottom' if i % 2 == 0 else 'top'  # Abwechselnd oben und unten setzen
+             #       #va_position="top"
+              #      ax.text(x, y, z, fontsize=12, ha='right', va=va_position)
 
         if Abweichung:
             #print(y_data.mean())
@@ -232,7 +250,8 @@ class Plot_einfach:
 
         # Titel und Legende
 
-        ax.legend(loc="upper left")
+        #ax.legend(loc="upper left")
+        ax.legend()
         if x2[0] is not None and y2[0] is not None:
             ax2.legend(loc="upper right")
 

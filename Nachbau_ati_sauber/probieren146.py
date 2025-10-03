@@ -1,7 +1,7 @@
 from fpdf import FPDF
 
 # === Dateinamen anpassen ===
-input_file = "probieren145.py"   # Hier Name deines .py Files eintragen!
+input_file = "probieren145_master.py"  # Hier Name deines .py Files eintragen!
 output_pdf = "Formfaktor.pdf"  # Name für das PDF
 
 pdf = FPDF(orientation='L', unit='mm', format='A4')  # Querformat!

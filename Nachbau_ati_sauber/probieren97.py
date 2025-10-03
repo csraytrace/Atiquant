@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 Ver = "66 Li2B4O7 + 34 Li1B1O2"
 Ver = "0.14 Si1O2 + 99.6 Al2O3 + 0.005 Ca1O1 + 0.1 Fe2O3 +0.15 Mg1O1"
-Ver = "3 Si1 + 0.9 C38H76N2O2"
+#Ver = "3 Si1 + 0.9 C38H76N2O2"
 #Ver = "1 C6H10O5"
 #Ver="1 Si1O2"
 #Ver="1 al1"

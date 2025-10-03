@@ -1,7 +1,7 @@
 import os
 
 # Suchparameter
-SUCHWORT = "PlotSwitcher"  # hier einmal
+SUCHWORT = "x, y = ele.Massenabsorptionskoe)ffizient_array("  # hier einmal
 ORDNER = "C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Nachbau_neu"  # z.B. "C:/Users/julia/OneDrive/Dokumente/A_Christian/Masterarbeit/Nachbau_neu"
 #C:\Users\julia\OneDrive\Dokumente\A_Christian\Masterarbeit\Nachbau_neu
 

@@ -79,6 +79,9 @@ def Tracor_daten(file_path, plot, info, intensity = None, save_fig = [False, "_"
             file.write("$MEAS_TIM:\n")
             file.write(format_number(Convert_to_short(content[-30:-28])[0]))
             file.write("\n")
+            file.write("$MCA_CAL:\n")
+            file.write("3\n")
+            file.write("0.000000e+000 2.000000e-002 0.000000e+000\n")
             file.write("$Info:\n")
             file.write("Messzeit:" +str(Convert_to_short(content[-30:-28])[0])+"sec, Spannung:"+str(Convert_to_short(content[-48:-46])[0])+"kV, Strom:"+ str(Convert_to_short(content[-46:-44])[0]*10**-2)+"mA\n")
             file.write("Name:"+str(Convert_to_char(content[22:35]))+ ", Filter:"+str(Convert_to_char(content[-44:-35]))+ ", L/V:"+ str(Convert_to_char(content[-14:-8]))+"\n")
@@ -106,16 +109,21 @@ def Tracor_daten(file_path, plot, info, intensity = None, save_fig = [False, "_"
 #file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\SPECTRUM.'
 #file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\Z_BESTIM\\SPECTRUM.'
 file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\STD\\SPECTRUM.'
-##file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\wobi\\SPECTRUM.'
+#file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\wobi\\SPECTRUM.'
 file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\KLAUD2\\SPECTRUM.'
+
+file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\CS\\Vakuum\\SPECTRUM.'
+
+
+
 save = file_path[:-9]
 
 int = []
-dateianfang = 100
-for i in range(3):
+dateianfang = 200
+for i in range(0):
     print("Datei", dateianfang+i)
     y_spec,title=Tracor_daten(file_path+str(dateianfang+i), 0, 1, (0,15000,None), [True,save])
-    print(process_peaks(y_spec[0],y_spec[1],19.2,20,show_plot=True))
+    #print(process_peaks(y_spec[0],y_spec[1],19.2,20,show_plot=True))
 
     ##print(process_intervals(y_spec[0],y_spec[1],[18.6,19.86],[19.86,20.59],titel1=title))
 
@@ -132,24 +140,25 @@ for i in range(3):
 #y_spec=Tracor_daten(file_path+str(144), 0, 1, (0,104,20.1), [False,save])
 #print(process_intervals(y_spec[0],y_spec[1],[19.86,20.59],[14,19.86]))
 #file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\Z_low\\SPECTRUM.'
-#file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\Z_BESTIM\\SPECTRUM.'
+file_path = 'C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Tracormessungen\\Messung2025\\Z_BESTIM\\SPECTRUM.'
 #y_spec=Tracor_daten(file_path+str(209), 0, 1, (0,104,20.1), [False,save])
 
-"""
+
 title_list=[]
 x,y,z = [],[],[]
 for i in range(1):
-    y_spec,title=Tracor_daten(file_path+str(110+i), 0, 1, (0,100,None), [False,save])
+    y_spec,title=Tracor_daten(file_path+str(100+i), 0, 1, (0,100,None), [False,save])
     title_list.append(title)
     #x1,y1,z1 = (process_peaks(y_spec[0],y_spec[1],20,19.2,show_plot=False))
-    x1,y1,z1 = process_intervals(y_spec[0],y_spec[1],[18.6,19.86],[19.86,20.59],show_plot=True,titel1=title)
+    #x1,y1,z1 = process_intervals(y_spec[0],y_spec[1],[18.6,19.86],[19.86,20.59],show_plot=True,titel1=title)
+    x1,y1,z1 = process_intervals(y_spec[0],y_spec[1],[18.6,19.86],[19.86,20.59],show_plot=True,titel1=title)      #PLOTS FÜR MASTER IN PROCESS_INTERVALS
     x.append(x1)
     y.append(y1)
     z.append(z1)
 
 print(x,y,z)
 print(title_list)
-"""
+
 
 #Tracor_daten(file_path+str(111), 0, 1, (1,104,19.25), [True,save])
 

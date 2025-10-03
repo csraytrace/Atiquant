@@ -43,7 +43,8 @@ for index, P1 in enumerate(Proben):
     if Übergänge[index] == 0:
         #tupel.append((Element(Element=P1).K_gemittel_ubergang(),gemessene_int[index]/K.Intensität_monoenergetisch([1],17.375)[0][0],P1))
 
-        tupel.append((Element(Element=P1).K_gemittel_ubergang(),gemessene_int[index]/K.Intensität_monoenergetisch([1],17.479)[0][0] / Filter("luft",Dicke=Dicke_Luft, Energie=Element(Element=P1).K_gemittel_ubergang()),P1+"_luft"))
+        #tupel.append((Element(Element=P1).K_gemittel_ubergang(),gemessene_int[index]/K.Intensität_monoenergetisch([1],17.479)[0][0] / Filter("luft",Dicke=Dicke_Luft, Energie=Element(Element=P1).K_gemittel_ubergang()),P1+"_luft"))
+        tupel.append((Element(Element=P1).K_gemittel_ubergang(),gemessene_int[index]/K.Intensität_monoenergetisch([1],17.479)[0][0] / Filter("luft",Dicke=Dicke_Luft, Energie=Element(Element=P1).K_gemittel_ubergang()),P1))
         print(Filter("luft",Dicke=Dicke_Luft, Energie=Element(Element=P1).K_gemittel_ubergang()),P1+"_luft")
         print(K.Intensität_monoenergetisch([1],17.375)[0])
     else:
@@ -52,11 +53,14 @@ for index, P1 in enumerate(Proben):
         #y.append(gemessene_int[index]/K.Intensität_Sekundärtarget("mo",Konzentration)[0][0])
         #tupel.append((Element(Element=P1).L_gemittel_ubergang(),gemessene_int[index]/K.Intensität_monoenergetisch([1],17.375)[0][0],P1))
 
-        tupel.append((Element(Element=P1).L_gemittel_ubergang(),gemessene_int[index]/K.Intensität_monoenergetisch([1],17.375)[0][0] / Filter("luft",Dicke=Dicke_Luft, Energie=Element(Element=P1).L_gemittel_ubergang()),P1+"_luft"))
+        #tupel.append((Element(Element=P1).L_gemittel_ubergang(),gemessene_int[index]/K.Intensität_monoenergetisch([1],17.375)[0][0] / Filter("luft",Dicke=Dicke_Luft, Energie=Element(Element=P1).L_gemittel_ubergang()),P1+"_luft"))
+        tupel.append((Element(Element=P1).L_gemittel_ubergang(),gemessene_int[index]/K.Intensität_monoenergetisch([1],17.375)[0][0] / Filter("luft",Dicke=Dicke_Luft, Energie=Element(Element=P1).L_gemittel_ubergang()),P1))
         print(Filter("luft",Dicke=Dicke_Luft, Energie=Element(Element=P1).L_gemittel_ubergang()),P1+"_luft")
 
 
 
 print(tupel)
-Plot_einfach(tupel,xy_format=False).plot_scatter(abweichung=True)
+Plot_einfach(tupel,xy_format=False).plot_scatter(abweichung=True, ylabel="Geometriefaktor", label="Messpunkte")
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\GeoMonoMicro.png", dpi=500, bbox_inches='tight', transparent=True)
+
 plt.show()

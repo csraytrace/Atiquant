@@ -66,7 +66,10 @@ for L in All_asr_files(path1_l):
     print("l")
 
 print(data)
-Plot_einfach(data, xy_format=False).plot_scatter(abweichung=True)
+
+
+Plot_einfach(data, xy_format=False).plot_scatter(abweichung=True, ylabel="Geometriefaktor", label="Messpunkte")
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\TracorGeo.png", dpi=500, bbox_inches='tight', transparent=True)
 
 plt.legend()
 plt.show()

@@ -15,6 +15,8 @@ from itertools import product
 from Nachbau_ati_sauber.Daten_plot_spektrum import save_arrays_to_textfile
 
 
+Integer = 0
+
 #def counter(Übergänge, array):
 #    sum = 0
  #   for über in array:
@@ -112,14 +114,16 @@ def parameter_änderung(para_var, grenzen, stepanzahl, para = ""):   #Elementanz
 
 def plots(Parameter=["charzucont"], Grenzen = [[1.2,0.8]], Zusatz=r" ", log_y2 = [False], Speichererweiterung = False):
     savefig=False
+    global Integer
+
 
 
     x_a, y_a, z_a, x2_a, y2_a = [],[],[],[],[]
     for i in range(len(Grenzen)):
         if Parameter[i] == "Emax":
-            para="step=0.005"
+            para="step=0.5"
         else:
-            para = "Emax=40, step=0.005"
+            para = "Emax=40, step=1"
         print("durchlauf",i)
 
         x,y, z, x2, y2 =parameter_änderung(Parameter[i], Grenzen[i], 3, para=para)
@@ -136,11 +140,11 @@ def plots(Parameter=["charzucont"], Grenzen = [[1.2,0.8]], Zusatz=r" ", log_y2 =
         if Parameter[i] == "Emax":
             linewidth=1
 
-        if Parameter[i] == "charzucont":
+        elif Parameter[i] == "charzucont":
             ymin2=10**10
             ymax2=8*10**11
 
-        if Parameter[i] == "charzucont_L":
+        elif Parameter[i] == "charzucont_L":
             ymin2=10**9
             ymax2=1.8*10**12
 
@@ -199,7 +203,12 @@ def plots(Parameter=["charzucont"], Grenzen = [[1.2,0.8]], Zusatz=r" ", log_y2 =
                 Speicherplus += "_"+str(Grenzen_i[0])+"-"+str(Grenzen_i[-1])
 
             plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Präsentation_2\\Parametervariation_2\\"+Parameter[i]+Speicherplus+".png", dpi=600, bbox_inches="tight")
-        plt.show()
+        plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Parameterplot"+str(Integer)+".png", dpi=500, bbox_inches='tight', transparent=True)
+        print(Integer)
+        Integer+=1
+        #plt.show()
+        plt.close()
+
 
 
 
@@ -214,15 +223,21 @@ Grenzen = [[2.9,3.1],[2,4],[0.02,0.08], [40,60]]
 Zusatz = [r" mm",r" mm", r" $\mu$m"," nm"]
 log_y2 = [False,False,False,False]
 
-Parameter = ["charzucont_L"]
-Grenzen = [[1.9,0.1]]
-Zusatz = [r""]
-log_y2 = [True]
+
+#Parameter = ["charzucont_L"]
+#Grenzen = [[1.9,0.1]]
+#Zusatz = [r""]
+#log_y2 = [True]               ,"Röhrenstrom" ,"Emax", "sigma", "Messzeit"
+Parameter = ["Einfallswinkelalpha","Fensterdicke_röhre","Röhrenstrom","Messzeit","Emax","charzucont","charzucont_L","sigma","Fensterdicke_det","Kontaktmaterialdicke","Totschicht","activeLayer"]
+Grenzen = [[17,23],                 [100,150],          [0.1,1.10],     [10,60],[39,41], [0.5,1.5],    [0.3,1.7], [0.8314,1.2314],[6,9],          [10,70] ,             [0.01,0.2],    [2,4] ]
+Zusatz = [" und ",                     r" nm",                  " mA",    " s", " kV",     "",             "",       "" ,          r" $\mu$m",       r" nm",             r" $\mu$m",      " mm"]
+log_y2 = [True,True,True,True,True,True,True,True,False,False,False,False]
+
 #plots()
 #plots(Parameter=["charzucont","Einfallswinkelalpha"], Grenzen = [[1.2,0.8],[19,21]] , Zusatz=[r"", " und "], log_y2 = [True,True],Speichererweiterung=True)
 plots(Parameter=Parameter, Grenzen=Grenzen, Zusatz=Zusatz, log_y2=log_y2, Speichererweiterung=True)
 
-
+"""
 savefig=True
 
 Grenzen = [1.2,0.8]
@@ -353,13 +368,13 @@ Plot_einfach([x,y[1]]).plot_line(color="r", ymin=ymin, ymin2=ymin2, xmin=0, xmin
 
 
 """
-        x_log = kwargs.get("log_x", False)  # Logarithmische x-Achse
-        y_log = kwargs.get("log_y", False)  # Logarithmische y-Achse
-        xlabel = kwargs.get("xlabel", "Energie [keV]")  # Beschriftung der x-Achse
-        ylabel = kwargs.get("ylabel", "y_data")  # Beschriftung der y-Achse
-        Name = kwargs.get("label", "label")  # Label
-        color = kwargs.get("color", "blue")
-        linewidth = kwargs.get("linewidth", 2) 
+   #     x_log = kwargs.get("log_x", False)  # Logarithmische x-Achse
+   #     y_log = kwargs.get("log_y", False)  # Logarithmische y-Achse
+   #     xlabel = kwargs.get("xlabel", "Energie [keV]")  # Beschriftung der x-Achse
+   #     ylabel = kwargs.get("ylabel", "y_data")  # Beschriftung der y-Achse
+    #    Name = kwargs.get("label", "label")  # Label
+    #    color = kwargs.get("color", "blue")
+    #    linewidth = kwargs.get("linewidth", 2)
 """
 #Plot_einfach([x,y[0],z]).plot_scatter()
 #Plot_einfach([x,y[1]]).plot_scatter()
@@ -369,3 +384,7 @@ Plot_einfach([x,y[1]]).plot_line(color="r", ymin=ymin, ymin2=ymin2, xmin=0, xmin
 #print(x,y,z)
 #EmKi = call_class_with_config(Calc_I,"Emax=5.8000e+02, P1=[39]")
 #print(EmKi.Röhre.Countrate_gesamt)
+
+
+
+"""

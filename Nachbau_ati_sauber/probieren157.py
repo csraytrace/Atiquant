@@ -3,7 +3,7 @@ import numpy as np
 
 
 
-print(Element(Element="42").Kanten())
+print(Element(Element="Bi").Kanten())
 
 for i in range(90):
     x_ele = Element(Element=str(i+1))

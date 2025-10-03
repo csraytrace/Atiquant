@@ -78,19 +78,21 @@ x_sek, y_sek , anregspek= Entpacken_sek(K.Intensität_Sekundärtarget("mo",Konze
 #print(K.Intensität_Sekundärtarget("mo",Konzentration))
 #print(np.linspace(0, (len(anregspek) - 1) * 0.05, len(anregspek)))
 
-##plt.plot(np.linspace(0, (len(anregspek) - 1) * step, len(anregspek)), anregspek, label="Anregspek: Sekundärtarget (Mo_char)", linestyle="-", color="gold")
+
 
 Energie = int(17.48/ step - Emin / step )
 Energie_index =(Energie*step)
 
+#plt.plot(np.linspace(0, (len(anregspek) - 1) * step, len(anregspek)), anregspek, label="Anregspek: Sekundärtarget (Mo_char)", linestyle="-", color="gold")
+#plt.vlines(x_sek+0.2,0, y_sek*max(y)/max(y_sek), color="green", linestyle="-", linewidth=2, label="Cu mit Sekundärtarget Mo")
+
 plt.vlines(x,0, y, color="black", linestyle="-", linewidth=2, label="Cu Monoenergetisch")
-##plt.vlines(x_sek+0.2,0, y_sek*max(y)/max(y_sek), color="green", linestyle="-", linewidth=2, label="Cu mit Sekundärtarget Mo")
 plt.vlines(Energie_index,0, 3*10**10, color="blue", linestyle="-", linewidth=2, label="Anregspek: Monoenergetisch")
 
 #plt.vlines(x_sek,0, y_sek, color="green", linestyle="-", linewidth=2, label="Cu")
 print("Faktor",max(y)/max(y_sek))
 
-
+plt.xlim(0,20.2)
 plt.ylim(10**4)
 plt.title("Anregung", fontsize=16)
 plt.xlabel("Energie [keV]", fontsize=12)
@@ -99,6 +101,7 @@ plt.yscale("log")
 
 plt.legend()  # Legende oben links
 
-
+#plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Anregung.png", dpi=500, bbox_inches='tight', transparent=True)
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\AnregungMonoMicro.png", dpi=500, bbox_inches='tight', transparent=True)
 # Plot anzeigen
 plt.show()

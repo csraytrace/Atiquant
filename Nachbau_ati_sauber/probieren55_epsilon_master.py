@@ -88,7 +88,9 @@ for index, P1 in enumerate(Proben):
 #plt.legend()  # Legende oben links
 print(tupel)
 
-Plot_einfach(tupel, xy_format=False).plot_scatter(abweichung=True, ylabel="Geometriefaktor")
+Plot_einfach(tupel, xy_format=False).plot_scatter(abweichung=True, ylabel="Geometriefaktor", label="Messpunkte")
+
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Epsilon_sekundär.png", dpi=500, bbox_inches='tight', transparent=True)
 
 #[[(1.2755978351345261e-05, 22.102955679764456, 'Ag')
 

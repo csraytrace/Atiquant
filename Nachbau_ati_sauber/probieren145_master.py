@@ -191,11 +191,11 @@ def plot_F_vs_q(z, q_min=1e-3, q_max=10, steps=1000):
     plt.plot(q_values, F_values, label=f'Z={z}')
     plt.xscale('log')
     plt.xlim(10**-3, 10**2)
-    plt.xlabel('q')
+    plt.xlabel(r'q $\left[ \mathring{A}^{-1}\right] $')
     plt.ylabel('F(z, q)')
     plt.yscale('log')
     plt.ylim(10**-8, 10**2)
-    plt.title(f'Formfaktor F(z, q)')
+    plt.title(f'Atomformfaktor F(z, q)')
     #plt.grid(True, which="both", ls=":")
     plt.legend()
     plt.tight_layout()
@@ -213,11 +213,11 @@ def plot_F_vs_q_plot2(z, q_min=0, q_max=16, steps=1000):
     #plt.figure(figsize=(7, 4))
     plt.plot(q_values, F_values, label=f'Z={z}')
     #plt.xscale('log')
-    plt.xlabel('q')
+    plt.xlabel(r'q $\left[ \mathring{A}^{-1}\right] $')
     plt.ylabel('F(z, q)')
     plt.yscale('log')
     plt.ylim(10**-2, 10**2)
-    plt.title(f'Formfaktor F(z, q)')
+    plt.title(f'Atomformfaktor F(z, q)')
     #plt.grid(True, which="both", ls=":")
     plt.legend()
     plt.tight_layout()
@@ -228,18 +228,25 @@ def plot_F_vs_q_plot2(z, q_min=0, q_max=16, steps=1000):
 #plot_F_vs_q(z=10)
 
 
-
 """
-plot_F_vs_q(z=10)
-plot_F_vs_q(z=6)
-plot_F_vs_q(z=2)
 plot_F_vs_q(z=1)
+plot_F_vs_q(z=2)
+plot_F_vs_q(z=6)
+plot_F_vs_q(z=10)
+
+
+
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Atomformfaktor_low.png", dpi=500, bbox_inches='tight', transparent=True)
 plt.show()
 
-
-plot_F_vs_q_plot2(z=47)
-plot_F_vs_q_plot2(z=25)
 plot_F_vs_q_plot2(z=11)
+plot_F_vs_q_plot2(z=25)
+plot_F_vs_q_plot2(z=33)
+plot_F_vs_q_plot2(z=47)
+
+
+
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\Atomformfaktor_hight.png", dpi=500, bbox_inches='tight', transparent=True)
 plt.show()
 """
 
@@ -344,7 +351,7 @@ def S(z,q):
                 else:
                     return S2(d1,d2,d3,q,q1,t1,t2,t3,z)
 
-"""
+
 
 
 
@@ -358,7 +365,7 @@ def S(z,q):
 
 
 
-"""
+
 S_werte_alt = [
     {"Z": 2,  "a": 7.2391e-01, "b": -2.14640e-01, "c": 9.10190e0,  "d": 1.55e1},
     {"Z": 3,  "a": 2.6076e1,   "b": 6.8617e0,    "c": 2.6299e1,  "d": 8.8e-1},
@@ -482,23 +489,25 @@ def plot_S_vs_q(z, q_min=1e-3, q_max=10, steps=1000):
     plt.plot(q_values, S_values, label=f'Z={z}')
     plt.xscale('log')
     #plt.xlim(10**-4, 10**2)
-    plt.xlabel('q')
+    plt.xlabel(r'q $\left[ \mathring{A}^{-1}\right] $')
     plt.ylabel('S(z, q)')
     plt.yscale('log')
     #plt.ylim(10**-5, 10**2)
-    plt.title(f'Streukoeffizient S(z, q)')
+    plt.title(f'inelastischer Streukoeffizient S(z, q)')
     #plt.grid(True, which="both", ls=":")
     plt.legend()
     plt.tight_layout()
 
 
+"""
+#plot_S_vs_q(z=30)
+plot_S_vs_q(z=20)
+plot_S_vs_q(z=5)
+plot_S_vs_q(z=2)
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\S_Streukoeffizient.png", dpi=500, bbox_inches='tight', transparent=True)
 
-
-#plot_S_vs_q(z=20)
-#plot_S_vs_q(z=5)
-#plot_S_vs_q(z=2)
-#plt.show()
-
+plt.show()
+"""
 
 #for i in range(29):
    # q=1.152
@@ -554,7 +563,7 @@ for i in range(len(data)):
     x_ele = Element(Element=str(i+2))
     inelas = x_ele.Massenschwächungskoeffizient(19.3)[1][0]
     elas = x_ele.Massenschwächungskoeffizient(20.2)[1][0]
-    arr[i] *= (inelas+elas)/(elas+elas) * 1.0179773725839938#Det noch
+    arr[i] *= (inelas+elas)/(elas+elas) * 1.0179773725839938 * 1.079#Det noch und Polarisationsfaktor
 
 
 Det = Detektor()
@@ -574,13 +583,18 @@ x_fit = np.linspace(min(x), max(x), 100)
 y_fit = power_law(x_fit, a_fit, b_fit)
 
 # Plotten
-plt.scatter(x, R, label="Daten", color="red")
+
+plt.xlabel(r'Ordnungszahl Z')
+plt.ylabel(r'R(Z)')
+plt.scatter(x, R, label="R(Z)", color="red")
 plt.plot(x_fit, y_fit, label=f"Fit: $y = {a_fit:.2f} \cdot x^{{{b_fit:.2f}}}$")
+plt.title(f'Fit für R(Z)')
 
 
 
-plt.xlabel("x")
-plt.ylabel("y")
+plt.xlim(3.5)
+plt.ylim(0, 20)
 plt.legend()
+plt.savefig("C:\\Users\\julia\\OneDrive\\Dokumente\\A_Christian\\Masterarbeit\\Masterarbeit\\R_fit.png", dpi=500, bbox_inches='tight', transparent=True)
 plt.show()
 

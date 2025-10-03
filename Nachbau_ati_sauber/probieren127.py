@@ -34,10 +34,19 @@ for kal in kal_dat:
         x_data.append(x_ele.L_gemittel_ubergang())
 
 
+
+#for kal in kal_dat:
+#    Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=15, activeLayer=2.06872613, Totschicht=8.54277948e-04, charzucont_L=2.02373175e-01,
+ #               charzucont=8.12735451e-01,Emax=4.49994894e+01,Kontaktmaterialdicke=3.98246503e+01)
+  #  print(kal[1]/Ki.Intensität_alle_jit_fürMinimierung([1])[0][0], kal[0])
+  #  y_data_scipy.append(kal[1]/(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0]))
+
+
+#python verwendet
 for kal in kal_dat:
-    Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=15, activeLayer=2.06872613, Totschicht=8.54277948e-04, charzucont_L=2.02373175e-01,
-                charzucont=8.12735451e-01,Emax=4.49994894e+01,Kontaktmaterialdicke=3.98246503e+01)
-    print(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0], kal[0])
+    Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=15, activeLayer=2.06872613, Totschicht=8.56937060e-11, charzucont_L=0.3,
+                charzucont=9.46173852e-01,Emax=40,Kontaktmaterialdicke=2.99882970e+01,sigma=8.30349567e-01)
+    print(kal[1]/Ki.Intensität_alle_jit_fürMinimierung([1])[0][0], kal[0])
     y_data_scipy.append(kal[1]/(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0]))
 
 
@@ -55,12 +64,29 @@ for kal in kal_dat:
 
 
 
+#for kal in kal_dat:
+  #  Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=15.082467912854321, activeLayer=2.8983779494032844,
+  ##              Totschicht=0.11260379595056184, charzucont_L=0.1,
+  #              charzucont=1.046154234152701,Emax=44.95743450053233,Kontaktmaterialdicke=10.792558496328677)
+  #  print(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0], kal[0])
+ #   y_data_boby.append(kal[1]/(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0]))
+
+
+#for kal in kal_dat:
+    #Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=20.3249876386949,Einfallswinkelbeta=90-20.3249876386949, activeLayer=2.512950718140293,
+     #           Totschicht=0, charzucont_L=0.1,sigma=0.8000015580225123,
+    #            charzucont=0.8159733899831029,Emax=40,Kontaktmaterialdicke=24.838486060956864)
+   # print(kal[1]/Ki.Intensität_alle_jit_fürMinimierung([1])[0][0], kal[0])
+   # y_data_boby.append(kal[1]/(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0]))
+
+#verwendet boby
 for kal in kal_dat:
-    Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=15.082467912854321, activeLayer=2.8983779494032844,
-                Totschicht=0.11260379595056184, charzucont_L=0.1,
-                charzucont=1.046154234152701,Emax=44.95743450053233,Kontaktmaterialdicke=10.792558496328677)
-    print(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0], kal[0])
+    Ki = Calc_I(Konzentration=[1], P1=[kal[0]], Übergänge=[kal[2]], Einfallswinkelalpha=20.3249876386949,Einfallswinkelbeta=90-20.3249876386949, activeLayer=2.512950718140293,
+                Totschicht=0, charzucont_L=0.1,sigma=0.8000015580225123,
+                charzucont=0.8159733899831029,Emax=40,Kontaktmaterialdicke=24.838486060956864)
+    print(kal[1]/Ki.Intensität_alle_jit_fürMinimierung([1])[0][0], kal[0])
     y_data_boby.append(kal[1]/(Ki.Intensität_alle_jit_fürMinimierung([1])[0][0]))
+
 
 
 #for kal in kal_dat:
